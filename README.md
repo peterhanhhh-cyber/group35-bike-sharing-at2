@@ -46,6 +46,18 @@ pip install -r requirements.txt
 streamlit run project/ui/app.py
 ```
 
+### Live demo
+
+The app is a Streamlit application, so GitHub alone cannot execute it. To put it
+online for free, use Streamlit Community Cloud and point it at this repository:
+
+* Repository: `peterhanhhh-cyber/group35-bike-sharing-at2`
+* Branch: `main`
+* Main file path: `project/ui/app.py`
+
+Deploy link:
+https://share.streamlit.io/deploy?repository=https://github.com/peterhanhhh-cyber/group35-bike-sharing-at2&branch=main&mainModule=project/ui/app.py
+
 The app loads `results/comparison_summary.json`, rebuilds the same 23 features
 used in training, and calls the selected model. The demo scenario (June, 08:00,
 Monday, humidity 0.70) returns about 624 rentals/hour.
