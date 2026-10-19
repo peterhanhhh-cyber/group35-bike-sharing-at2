@@ -1,0 +1,79 @@
+{
+  "raw_rows": 17379,
+  "raw_columns": 18,
+  "date_min": "2011-01-01",
+  "date_max": "2012-12-31",
+  "missing_hours": 165,
+  "longest_gap_hours": 36,
+  "split_rows": {
+    "train": 12139,
+    "validation": 2640,
+    "test": 2600
+  },
+  "modelling_rows": {
+    "train": 11816,
+    "validation": 2640,
+    "test": 2600
+  },
+  "features": [
+    "season_1",
+    "season_2",
+    "season_3",
+    "weather_1",
+    "weather_2",
+    "weather_3",
+    "mnth_sin",
+    "mnth_cos",
+    "hr_sin",
+    "hr_cos",
+    "wd_sin",
+    "wd_cos",
+    "holiday",
+    "workingday",
+    "temp",
+    "atemp",
+    "hum",
+    "windspeed",
+    "lag1",
+    "lag24",
+    "lag168",
+    "roll24",
+    "roll168"
+  ],
+  "target_mean_train": 162.58480027081922,
+  "target_mean_validation": 281.4689393939394,
+  "target_mean_test": 234.90730769230768,
+  "leakage_check_casual_plus_registered": true,
+  "integrity": {
+    "rows": {
+      "train": 12139,
+      "validation": 2640,
+      "test": 2600
+    },
+    "manifest_rows": 17379,
+    "all_rows_accounted_for": true,
+    "overlaps": {
+      "train_val": 0,
+      "train_test": 0,
+      "val_test": 0
+    },
+    "train_range": [
+      "2011-01-01 00:00:00",
+      "2012-05-25 23:00:00"
+    ],
+    "validation_range": [
+      "2012-05-26 00:00:00",
+      "2012-09-12 23:00:00"
+    ],
+    "test_range": [
+      "2012-09-13 00:00:00",
+      "2012-12-31 23:00:00"
+    ],
+    "split_in_manifest": {
+      "test": 2600,
+      "train": 12139,
+      "validation": 2640
+    },
+    "duplicate_instants": 0
+  }
+}

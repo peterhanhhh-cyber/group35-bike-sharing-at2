@@ -1,0 +1,33 @@
+{
+  "bottleneck": 8,
+  "hidden": 16,
+  "head_hidden": 32,
+  "features": [
+    "season_1",
+    "season_2",
+    "season_3",
+    "weather_1",
+    "weather_2",
+    "weather_3",
+    "mnth_sin",
+    "mnth_cos",
+    "hr_sin",
+    "hr_cos",
+    "wd_sin",
+    "wd_cos",
+    "holiday",
+    "workingday",
+    "temp",
+    "atemp",
+    "hum",
+    "windspeed",
+    "lag1",
+    "lag24",
+    "lag168",
+    "roll24",
+    "roll168"
+  ],
+  "target_mean": 162.58480027081922,
+  "target_std": 153.25550202960642,
+  "seed": 42
+}

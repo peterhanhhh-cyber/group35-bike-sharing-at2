@@ -1,0 +1,27 @@
+{
+  "scenario": {
+    "month": 6,
+    "hour": 8,
+    "weekday": 1,
+    "holiday": 0,
+    "workingday": 1,
+    "weathersit": 1,
+    "temp": 0.55,
+    "atemp": 0.52,
+    "hum": 0.7,
+    "windspeed": 0.15
+  },
+  "anchor": "2012-06-25 08:00:00",
+  "quality": "exact calendar match",
+  "matches": 8,
+  "observed_at_anchor": 608.0,
+  "predictions": {
+    "Random Forest": 501.791298964924,
+    "LSTM": 623.9004120668183,
+    "2D CNN": 597.5051430675609,
+    "AE + head": 302.87243390993865
+  },
+  "selected": "LSTM",
+  "prediction": 623.9004120668183,
+  "selected_prediction": 623.9004120668183
+}

@@ -1,0 +1,179 @@
+{
+  "selected_model": "LSTM",
+  "selection_reason": "The validation MAE gap between LSTM and 2D CNN is only 0.31 rentals/hour, so the decision uses the weighted scorecard (accuracy 70%, peak-hour error 15%, latency 15%). LSTM has the best weighted score.",
+  "validation_gap_to_runner_up": 0.31096670844338803,
+  "runner_up": "2D CNN",
+  "table": {
+    "Random Forest": {
+      "owner": "Richard",
+      "lab": "Lab 3",
+      "val MAE": 40.226007,
+      "val RMSE": 63.178382,
+      "val R2": 0.920173,
+      "test MAE": 35.559792,
+      "test RMSE": 58.540213,
+      "test R2": 0.925354,
+      "train seconds": 1.85197,
+      "model MB": 41.370912,
+      "single-row ms": 61.465763
+    },
+    "LSTM": {
+      "owner": "Jimmy",
+      "lab": "Lab 4",
+      "val MAE": 33.20327,
+      "val RMSE": 49.811015,
+      "val R2": 0.950379,
+      "test MAE": 30.455898,
+      "test RMSE": 47.721375,
+      "test R2": 0.950395,
+      "train seconds": 295.891451,
+      "model MB": 0.22643,
+      "single-row ms": 1.330454
+    },
+    "2D CNN": {
+      "owner": "Junzhe",
+      "lab": "Lab 6",
+      "val MAE": 33.514237,
+      "val RMSE": 49.844374,
+      "val R2": 0.950313,
+      "test MAE": 31.559746,
+      "test RMSE": 48.035837,
+      "test R2": 0.949739,
+      "train seconds": 125.526183,
+      "model MB": 0.284451,
+      "single-row ms": 0.894563
+    },
+    "AE + head": {
+      "owner": "Peter",
+      "lab": "Lab 8",
+      "val MAE": 54.956617,
+      "val RMSE": 82.15206,
+      "val R2": 0.865026,
+      "test MAE": 58.472177,
+      "test RMSE": 85.624433,
+      "test R2": 0.840304,
+      "train seconds": 11.512588,
+      "model MB": 0.007774,
+      "single-row ms": 0.159635
+    }
+  },
+  "scenario_table": {
+    "Random Forest": {
+      "peak hours": 67.425343,
+      "off-peak hours": 24.872476,
+      "weekday": 36.991411,
+      "weekend/holiday": 32.678306,
+      "high demand": 59.110013,
+      "lower demand": 19.478572
+    },
+    "LSTM": {
+      "peak hours": 55.84882,
+      "off-peak hours": 21.939422,
+      "weekday": 31.511378,
+      "weekend/holiday": 28.331484,
+      "high demand": 49.409825,
+      "lower demand": 17.513248
+    },
+    "2D CNN": {
+      "peak hours": 49.46093,
+      "off-peak hours": 25.555908,
+      "weekday": 31.631619,
+      "weekend/holiday": 31.415084,
+      "high demand": 44.562628,
+      "lower demand": 22.680756
+    },
+    "AE + head": {
+      "peak hours": 92.851221,
+      "off-peak hours": 46.941866,
+      "weekday": 60.474735,
+      "weekend/holiday": 54.441536,
+      "high demand": 87.438133,
+      "lower demand": 38.692835
+    }
+  },
+  "scorecard": {
+    "Random Forest": {
+      "owner": "Richard",
+      "lab": "Lab 3",
+      "val MAE": 40.226007,
+      "val RMSE": 63.178382,
+      "val R2": 0.920173,
+      "test MAE": 35.559792,
+      "test RMSE": 58.540213,
+      "test R2": 0.925354,
+      "train seconds": 1.85197,
+      "model MB": 41.370912,
+      "single-row ms": 61.465763,
+      "rank val MAE": 3,
+      "rank val RMSE": 3,
+      "rank peak MAE": 3,
+      "rank latency": 4,
+      "weighted score": 3.15
+    },
+    "LSTM": {
+      "owner": "Jimmy",
+      "lab": "Lab 4",
+      "val MAE": 33.20327,
+      "val RMSE": 49.811015,
+      "val R2": 0.950379,
+      "test MAE": 30.455898,
+      "test RMSE": 47.721375,
+      "test R2": 0.950395,
+      "train seconds": 295.891451,
+      "model MB": 0.22643,
+      "single-row ms": 1.330454,
+      "rank val MAE": 1,
+      "rank val RMSE": 1,
+      "rank peak MAE": 2,
+      "rank latency": 3,
+      "weighted score": 1.45
+    },
+    "2D CNN": {
+      "owner": "Junzhe",
+      "lab": "Lab 6",
+      "val MAE": 33.514237,
+      "val RMSE": 49.844374,
+      "val R2": 0.950313,
+      "test MAE": 31.559746,
+      "test RMSE": 48.035837,
+      "test R2": 0.949739,
+      "train seconds": 125.526183,
+      "model MB": 0.284451,
+      "single-row ms": 0.894563,
+      "rank val MAE": 2,
+      "rank val RMSE": 2,
+      "rank peak MAE": 1,
+      "rank latency": 2,
+      "weighted score": 1.85
+    },
+    "AE + head": {
+      "owner": "Peter",
+      "lab": "Lab 8",
+      "val MAE": 54.956617,
+      "val RMSE": 82.15206,
+      "val R2": 0.865026,
+      "test MAE": 58.472177,
+      "test RMSE": 85.624433,
+      "test R2": 0.840304,
+      "train seconds": 11.512588,
+      "model MB": 0.007774,
+      "single-row ms": 0.159635,
+      "rank val MAE": 4,
+      "rank val RMSE": 4,
+      "rank peak MAE": 4,
+      "rank latency": 1,
+      "weighted score": 3.55
+    }
+  },
+  "paired_test": {
+    "first": "LSTM",
+    "second": "2D CNN",
+    "mean_abs_error_difference": -1.1038485992769227,
+    "wilcoxon_p": 0.0001778599453296769,
+    "bootstrap_ci_95": [
+      -2.3579959623068287,
+      0.1575695036354782
+    ]
+  },
+  "test_rows": 2600
+}

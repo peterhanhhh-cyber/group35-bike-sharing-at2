@@ -1,0 +1,8 @@
+streamlit>=1.40
+numpy>=1.26
+pandas>=2.2
+scikit-learn>=1.5
+matplotlib>=3.8
+joblib>=1.4
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch>=2.2
