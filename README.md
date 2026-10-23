@@ -84,7 +84,3 @@ Fanaee-T, H. and Gama, J. (2013) 'Event labeling combining ensemble detectors
 and background knowledge', *Progress in Artificial Intelligence*, 2(2–3),
 pp. 113–127. Dataset: UCI Machine Learning Repository, Bike Sharing Dataset.
 
-## Note
-
-This repository is a course project. The four methods were implemented as a
-group exercise; the report and video are submitted separately.
