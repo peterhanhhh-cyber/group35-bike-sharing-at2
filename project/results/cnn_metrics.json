@@ -1,6 +1,6 @@
 {
   "method": "2D CNN",
-  "owner": "Junzhe",
+  "owner": "Junzhe Xu",
   "lab": "Lab 6",
   "config": {
     "window": 168,
@@ -47,7 +47,7 @@
       "kernel": 5,
       "best_epoch": 8,
       "val_MAE": 38.72759363579028,
-      "train_seconds": 72.41648965600007,
+      "train_seconds": 82.02878676599994,
       "params": 72737
     },
     {
@@ -56,7 +56,7 @@
       "kernel": 3,
       "best_epoch": 15,
       "val_MAE": 39.657469220594926,
-      "train_seconds": 55.778451002,
+      "train_seconds": 81.46730320900042,
       "params": 28193
     },
     {
@@ -65,7 +65,7 @@
       "kernel": 3,
       "best_epoch": 14,
       "val_MAE": 42.03757432590832,
-      "train_seconds": 26.081706319999967,
+      "train_seconds": 31.79931553300048,
       "params": 8545
     }
   ],
@@ -351,12 +351,12 @@
     19
   ],
   "high_demand_threshold": 238.0,
-  "train_seconds": 125.52618315099994,
+  "train_seconds": 253.03734255000018,
   "model_size_mb": 0.2844514846801758,
   "inference": {
-    "batch_seconds": 0.38109644399999826,
+    "batch_seconds": 0.6017249016664815,
     "batch_rows": 2600,
-    "single_row_ms": 0.8945631750003713
+    "single_row_ms": 4.197047610000482
   },
   "train_rows": 11816,
   "history": [

@@ -5,7 +5,7 @@
   "runner_up": "2D CNN",
   "table": {
     "Random Forest": {
-      "owner": "Richard",
+      "owner": "Ruo Wu",
       "lab": "Lab 3",
       "val MAE": 40.226007,
       "val RMSE": 63.178382,
@@ -13,12 +13,12 @@
       "test MAE": 35.559792,
       "test RMSE": 58.540213,
       "test R2": 0.925354,
-      "train seconds": 1.85197,
+      "train seconds": 2.237238,
       "model MB": 41.370912,
-      "single-row ms": 61.465763
+      "single-row ms": 69.659832
     },
     "LSTM": {
-      "owner": "Jimmy",
+      "owner": "Yichen Xie",
       "lab": "Lab 4",
       "val MAE": 33.20327,
       "val RMSE": 49.811015,
@@ -26,12 +26,12 @@
       "test MAE": 30.455898,
       "test RMSE": 47.721375,
       "test R2": 0.950395,
-      "train seconds": 295.891451,
+      "train seconds": 411.471079,
       "model MB": 0.22643,
-      "single-row ms": 1.330454
+      "single-row ms": 1.755281
     },
     "2D CNN": {
-      "owner": "Junzhe",
+      "owner": "Junzhe Xu",
       "lab": "Lab 6",
       "val MAE": 33.514237,
       "val RMSE": 49.844374,
@@ -39,12 +39,12 @@
       "test MAE": 31.559746,
       "test RMSE": 48.035837,
       "test R2": 0.949739,
-      "train seconds": 125.526183,
+      "train seconds": 253.037343,
       "model MB": 0.284451,
-      "single-row ms": 0.894563
+      "single-row ms": 4.197048
     },
     "AE + head": {
-      "owner": "Peter",
+      "owner": "Zongliang Han",
       "lab": "Lab 8",
       "val MAE": 54.956617,
       "val RMSE": 82.15206,
@@ -52,9 +52,9 @@
       "test MAE": 58.472177,
       "test RMSE": 85.624433,
       "test R2": 0.840304,
-      "train seconds": 11.512588,
+      "train seconds": 18.975987,
       "model MB": 0.007774,
-      "single-row ms": 0.159635
+      "single-row ms": 0.15953
     }
   },
   "scenario_table": {
@@ -93,7 +93,7 @@
   },
   "scorecard": {
     "Random Forest": {
-      "owner": "Richard",
+      "owner": "Ruo Wu",
       "lab": "Lab 3",
       "val MAE": 40.226007,
       "val RMSE": 63.178382,
@@ -101,9 +101,9 @@
       "test MAE": 35.559792,
       "test RMSE": 58.540213,
       "test R2": 0.925354,
-      "train seconds": 1.85197,
+      "train seconds": 2.237238,
       "model MB": 41.370912,
-      "single-row ms": 61.465763,
+      "single-row ms": 69.659832,
       "rank val MAE": 3,
       "rank val RMSE": 3,
       "rank peak MAE": 3,
@@ -111,7 +111,7 @@
       "weighted score": 3.15
     },
     "LSTM": {
-      "owner": "Jimmy",
+      "owner": "Yichen Xie",
       "lab": "Lab 4",
       "val MAE": 33.20327,
       "val RMSE": 49.811015,
@@ -119,17 +119,17 @@
       "test MAE": 30.455898,
       "test RMSE": 47.721375,
       "test R2": 0.950395,
-      "train seconds": 295.891451,
+      "train seconds": 411.471079,
       "model MB": 0.22643,
-      "single-row ms": 1.330454,
+      "single-row ms": 1.755281,
       "rank val MAE": 1,
       "rank val RMSE": 1,
       "rank peak MAE": 2,
-      "rank latency": 3,
-      "weighted score": 1.45
+      "rank latency": 2,
+      "weighted score": 1.3
     },
     "2D CNN": {
-      "owner": "Junzhe",
+      "owner": "Junzhe Xu",
       "lab": "Lab 6",
       "val MAE": 33.514237,
       "val RMSE": 49.844374,
@@ -137,17 +137,17 @@
       "test MAE": 31.559746,
       "test RMSE": 48.035837,
       "test R2": 0.949739,
-      "train seconds": 125.526183,
+      "train seconds": 253.037343,
       "model MB": 0.284451,
-      "single-row ms": 0.894563,
+      "single-row ms": 4.197048,
       "rank val MAE": 2,
       "rank val RMSE": 2,
       "rank peak MAE": 1,
-      "rank latency": 2,
-      "weighted score": 1.85
+      "rank latency": 3,
+      "weighted score": 2.0
     },
     "AE + head": {
-      "owner": "Peter",
+      "owner": "Zongliang Han",
       "lab": "Lab 8",
       "val MAE": 54.956617,
       "val RMSE": 82.15206,
@@ -155,9 +155,9 @@
       "test MAE": 58.472177,
       "test RMSE": 85.624433,
       "test R2": 0.840304,
-      "train seconds": 11.512588,
+      "train seconds": 18.975987,
       "model MB": 0.007774,
-      "single-row ms": 0.159635,
+      "single-row ms": 0.15953,
       "rank val MAE": 4,
       "rank val RMSE": 4,
       "rank peak MAE": 4,

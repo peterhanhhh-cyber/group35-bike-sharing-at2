@@ -1,6 +1,6 @@
 {
   "method": "Autoencoder + regression head",
-  "owner": "Peter",
+  "owner": "Zongliang Han",
   "lab": "Lab 8",
   "config": {
     "bottleneck": 8,
@@ -39,26 +39,26 @@
     {
       "bottleneck": 4,
       "ae_val_recon_loss": 0.3922896087169647,
-      "ae_seconds": 8.155040342999996,
+      "ae_seconds": 14.572303060000195,
       "head_val_MAE": 61.83722323504361,
-      "head_seconds": 3.344121353999981,
-      "total_seconds": 11.499161696999977
+      "head_seconds": 5.4114349189994755,
+      "total_seconds": 19.98373797899967
     },
     {
       "bottleneck": 8,
       "ae_val_recon_loss": 0.31489887833595276,
-      "ae_seconds": 5.0771664190000365,
+      "ae_seconds": 8.659166567000284,
       "head_val_MAE": 54.95661723974979,
-      "head_seconds": 6.4354220139999825,
-      "total_seconds": 11.512588433000019
+      "head_seconds": 10.316820189999817,
+      "total_seconds": 18.9759867570001
     },
     {
       "bottleneck": 12,
       "ae_val_recon_loss": 0.13389775156974792,
-      "ae_seconds": 11.353512704000082,
+      "ae_seconds": 17.920232208000016,
       "head_val_MAE": 56.097698020935056,
-      "head_seconds": 6.011644156999978,
-      "total_seconds": 17.36515686100006
+      "head_seconds": 9.96100115399986,
+      "total_seconds": 27.881233361999875
     }
   ],
   "validation": {
@@ -333,6 +333,15 @@
       }
     }
   },
+  "peak_hours": [
+    8,
+    13,
+    16,
+    17,
+    18,
+    19
+  ],
+  "high_demand_threshold": 238.0,
   "controls": {
     "raw_mlp": {
       "validation": {
@@ -364,22 +373,13 @@
     }
   },
   "negative_result": true,
-  "peak_hours": [
-    8,
-    13,
-    16,
-    17,
-    18,
-    19
-  ],
-  "high_demand_threshold": 238.0,
-  "ae_train_seconds": 5.0771664190000365,
-  "head_train_seconds": 6.4354220139999825,
+  "ae_train_seconds": 8.659166567000284,
+  "head_train_seconds": 10.316820189999817,
   "model_size_mb": 0.00777435302734375,
   "inference": {
-    "batch_seconds": 0.0005745199999864781,
+    "batch_seconds": 0.00032202680013142525,
     "batch_rows": 2600,
-    "single_row_ms": 0.1596346750000066
+    "single_row_ms": 0.1595301749966893
   },
   "train_rows": 11816
 }

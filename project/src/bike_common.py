@@ -526,3 +526,204 @@ def save_figure(fig, name: str, directory: Path | None = None) -> Path:
 def fmt_metrics(metrics: dict) -> str:
     return (f"MAE {metrics['MAE']:.2f} | RMSE {metrics['RMSE']:.2f} | "
             f"R2 {metrics['R2']:.4f}")
+
+
+# ---------------------------------------------------------------------------
+# Notebook helpers
+#
+# The four method notebooks share the same training loop, diagnostics plots
+# and evidence files.  Keeping that plumbing here means each notebook only
+# shows what is specific to its method: the model, the tuning experiment and
+# the result.  torch is imported lazily so the interface can import this
+# module without it.
+# ---------------------------------------------------------------------------
+SEED = 42
+META_COLUMNS = ["instant", "dteday", "hr", "weekday", "workingday",
+                "season", "weathersit", "cnt"]
+
+
+def train_regressor(model_fn, X_train, y_train, X_val, y_val, y_mean, y_std, *,
+                    max_epochs=15, patience=4, lr=1e-3, batch_size=128,
+                    clip=True, use_scheduler=True, tag="model", verbose=True):
+    """
+    Train a PyTorch regressor on the standardised target with early stopping.
+
+    ``model_fn`` builds the network after the seed is set, so every run starts
+    from the same weights.  The loop uses AdamW, smooth L1 loss, optional
+    gradient clipping and an optional ReduceLROnPlateau scheduler; it stops
+    when validation MAE (in rentals) has not improved by 0.05 for ``patience``
+    epochs and restores the best epoch's weights.
+    """
+    import copy
+    import torch
+    import torch.nn as nn
+    from torch.utils.data import DataLoader, TensorDataset
+
+    torch.manual_seed(SEED)
+    model = model_fn()
+    optimizer = torch.optim.AdamW(model.parameters(), lr=lr, weight_decay=1e-4)
+    scheduler = (torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, factor=0.5, patience=2)
+                 if use_scheduler else None)
+    loss_fn = nn.SmoothL1Loss(beta=0.5)
+
+    Xtr = torch.tensor(np.asarray(X_train, dtype=np.float32))
+    ytr = torch.tensor((np.asarray(y_train) - y_mean) / y_std, dtype=torch.float32).view(-1, 1)
+    Xva = torch.tensor(np.asarray(X_val, dtype=np.float32))
+    yva = torch.tensor((np.asarray(y_val) - y_mean) / y_std, dtype=torch.float32).view(-1, 1)
+    loader = DataLoader(TensorDataset(Xtr, ytr), batch_size=batch_size, shuffle=True,
+                        generator=torch.Generator().manual_seed(SEED))
+
+    history, best_mae, best_epoch, bad = [], float("inf"), 0, 0
+    best_state = copy.deepcopy(model.state_dict())
+    t0 = time.perf_counter()
+    for epoch in range(1, max_epochs + 1):
+        model.train()
+        running = 0.0
+        for xb, yb in loader:
+            optimizer.zero_grad()
+            loss = loss_fn(model(xb), yb)
+            loss.backward()
+            if clip:
+                torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
+            optimizer.step()
+            running += loss.item() * len(xb)
+        train_loss = running / len(Xtr)
+
+        model.eval()
+        with torch.no_grad():
+            val_scaled = model(Xva)
+            val_loss = loss_fn(val_scaled, yva).item()
+        val_mae = regression_metrics(y_val, val_scaled.numpy().ravel() * y_std + y_mean)["MAE"]
+        if scheduler is not None:
+            scheduler.step(val_loss)
+        history.append({"epoch": epoch, "train_loss": train_loss,
+                        "val_loss": val_loss, "val_MAE": val_mae})
+        if verbose:
+            print(f"{tag} epoch {epoch:02d}  train {train_loss:.4f}  "
+                  f"val {val_loss:.4f}  val MAE {val_mae:.2f}", flush=True)
+
+        if val_mae < best_mae - 0.05:
+            best_mae, best_epoch, bad = val_mae, epoch, 0
+            best_state = copy.deepcopy(model.state_dict())
+        else:
+            bad += 1
+            if bad >= patience:
+                print(f"{tag}: early stop at epoch {epoch} "
+                      f"(best epoch {best_epoch}, MAE {best_mae:.2f})")
+                break
+
+    model.load_state_dict(best_state)
+    model.eval()
+    return {"model": model, "history": pd.DataFrame(history), "best_epoch": best_epoch,
+            "best_val_MAE": best_mae, "train_seconds": time.perf_counter() - t0}
+
+
+def predict_regressor(model, X, y_mean, y_std):
+    """Predict rentals per hour with a trained PyTorch regressor."""
+    import torch
+
+    model.eval()
+    with torch.no_grad():
+        scaled = model(torch.tensor(np.asarray(X, dtype=np.float32))).numpy().ravel()
+    return scaled * y_std + y_mean
+
+
+def evaluate(y_val, val_pred, y_test, test_pred, meta_val, meta_test, train) -> dict:
+    """Overall and scenario metrics on validation and test, printed and returned."""
+    out = {
+        "validation": regression_metrics(y_val, val_pred),
+        "test": regression_metrics(y_test, test_pred),
+        "validation_scenarios": scenario_metrics(meta_val, y_val, val_pred, train),
+        "test_scenarios": scenario_metrics(meta_test, y_test, test_pred, train),
+        "peak_hours": peak_hours(train),
+        "high_demand_threshold": high_demand_threshold(train),
+    }
+    print("Validation:", fmt_metrics(out["validation"]))
+    print("Test:      ", fmt_metrics(out["test"]))
+    return out
+
+
+def scenario_table(ev: dict) -> pd.DataFrame:
+    """Scenario MAE table (validation and test) from :func:`evaluate`."""
+    val, test = ev["validation_scenarios"], ev["test_scenarios"]
+    keys = [k for k in val if k != "by_hour"]
+    return pd.DataFrame({
+        "validation n": {k: val[k]["n"] for k in keys},
+        "validation MAE": {k: val[k]["MAE"] for k in keys},
+        "test n": {k: test[k]["n"] for k in keys},
+        "test MAE": {k: test[k]["MAE"] for k in keys},
+    }).round(2)
+
+
+def plot_training_curves(history: pd.DataFrame, best_epoch: int, title: str, name: str):
+    """Loss curves and validation MAE per epoch, with the restored epoch marked."""
+    import matplotlib.pyplot as plt
+
+    fig, axes = plt.subplots(1, 2, figsize=(9.2, 3.3))
+    axes[0].plot(history["epoch"], history["train_loss"], marker="o", ms=3, label="training")
+    axes[0].plot(history["epoch"], history["val_loss"], marker="s", ms=3, label="validation")
+    axes[0].set(title=f"{title} loss curves", xlabel="Epoch",
+                ylabel="Smooth L1 loss (scaled target)")
+    axes[0].legend()
+    axes[1].plot(history["epoch"], history["val_MAE"], marker="o", ms=3, color="#c00000")
+    axes[1].axvline(best_epoch, color="black", ls="--", lw=1, label=f"best epoch {best_epoch}")
+    axes[1].set(title="Validation MAE during training", xlabel="Epoch", ylabel="MAE (rentals)")
+    axes[1].legend()
+    plt.tight_layout()
+    save_figure(fig, name)
+    plt.show()
+
+
+def plot_diagnostics(y_true, y_pred, hours, title: str, prefix: str) -> None:
+    """Predicted-vs-observed hexbin, residual histogram and MAE by hour (test)."""
+    import matplotlib.pyplot as plt
+
+    y_true = np.asarray(y_true, dtype=float)
+    y_pred = np.asarray(y_pred, dtype=float)
+    fig, ax = plt.subplots(figsize=(5.2, 4.4))
+    hb = ax.hexbin(y_true, y_pred, gridsize=45, cmap="Blues", mincnt=1)
+    lims = [0, max(y_true.max(), y_pred.max()) * 1.02]
+    ax.plot(lims, lims, color="#c00000", ls="--", lw=1, label="perfect prediction")
+    ax.set(xlim=lims, ylim=lims, xlabel="Observed rentals", ylabel="Predicted rentals",
+           title=f"{title} — test period")
+    ax.legend(loc="upper left")
+    fig.colorbar(hb, ax=ax, label="hours")
+    save_figure(fig, f"fig_{prefix}_pred_vs_actual.png")
+    plt.show()
+
+    residual = y_pred - y_true
+    fig, axes = plt.subplots(1, 2, figsize=(9.5, 3.4))
+    axes[0].hist(residual, bins=55, color="#1f4e79", alpha=0.85)
+    axes[0].axvline(0, color="#c00000", ls="--")
+    axes[0].set(title="Test residuals (predicted − observed)",
+                xlabel="Error in rentals", ylabel="Hours")
+    by_hour = pd.Series(np.abs(residual)).groupby(np.asarray(hours)).mean()
+    axes[1].bar(by_hour.index, by_hour.values, color="#5b9bd5")
+    axes[1].set(title="Mean absolute error by hour (test)",
+                xlabel="Hour of day", ylabel="MAE (rentals)")
+    axes[1].set_xticks(range(0, 24, 3))
+    plt.tight_layout()
+    save_figure(fig, f"fig_{prefix}_residuals.png")
+    plt.show()
+    print(f"Residual mean {residual.mean():.2f} | standard deviation {residual.std():.2f}")
+
+
+def worst_errors(meta: pd.DataFrame, y_pred, n: int = 12) -> pd.DataFrame:
+    """The *n* test hours with the largest absolute error, with their context."""
+    frame = meta.reset_index(drop=True).copy()
+    frame["prediction"] = np.asarray(y_pred)
+    frame["error"] = frame["prediction"] - frame["cnt"]
+    cols = [c for c in ["dteday", "hr", "weekday", "workingday", "weathersit",
+                        "temp", "hum", "cnt", "prediction", "error"] if c in frame]
+    return frame.loc[frame["error"].abs().sort_values(ascending=False).index[:n], cols].round(1)
+
+
+def save_predictions(meta: pd.DataFrame, y_pred, name: str) -> None:
+    """Write one prediction CSV keyed by ``instant`` for the comparison notebook."""
+    frame = meta.reset_index(drop=True)[[c for c in META_COLUMNS if c in meta]].copy()
+    frame["prediction"] = np.asarray(y_pred)
+    frame.to_csv(RESULTS_DIR / name, index=False)
+
+
+def file_mb(*paths) -> float:
+    return sum(Path(p).stat().st_size for p in paths) / (1024 * 1024)

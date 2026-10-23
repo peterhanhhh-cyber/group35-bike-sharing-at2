@@ -7,7 +7,7 @@ and weather information, using the UCI Bike Sharing hourly dataset (Washington,
 D.C., 2011–2012). Four techniques were developed under one shared protocol and
 compared on the same frozen test rows.
 
-**Group 35:** Richard, Jimmy, Junzhe, Peter
+**Group 35:** Ruo Wu, Yichen Xie, Junzhe Xu, Zongliang Han
 
 ## Results
 
@@ -32,6 +32,10 @@ reported as a documented negative result.
 | 03 | [2D CNN](project/notebooks/03_cnn_junzhe.ipynb) | [Colab](https://colab.research.google.com/github/peterhanhhh-cyber/group35-bike-sharing-at2/blob/main/project/notebooks/03_cnn_junzhe.ipynb) |
 | 04 | [Autoencoder](project/notebooks/04_autoencoder_peter.ipynb) | [Colab](https://colab.research.google.com/github/peterhanhhh-cyber/group35-bike-sharing-at2/blob/main/project/notebooks/04_autoencoder_peter.ipynb) |
 | **05** | **[Comparison and selection (best)](project/notebooks/05_comparison_and_selection.ipynb)** | **[Colab](https://colab.research.google.com/github/peterhanhhh-cyber/group35-bike-sharing-at2/blob/main/project/notebooks/05_comparison_and_selection.ipynb)** |
+
+Notebooks 01–04 share one seven-section layout (setup, model, tuning experiment,
+final model, results, cost and saved evidence, conclusion); the shared training
+loop, evaluation and plots live in `project/src/bike_common.py`.
 
 All notebooks are committed with their executed outputs. The Colab links are
 for viewing; running them needs `hour.csv` and the `src/` folder in the Colab
@@ -66,7 +70,7 @@ Monday, humidity 0.70) returns about 624 rentals/hour.
 
 ```
 hour.csv, split_manifest.csv     raw data and frozen chronological split
-project/src/bike_common.py       shared pipeline: split, features, metrics
+project/src/bike_common.py       shared pipeline: split, features, metrics, training loop, plots
 project/notebooks/               six executed notebooks
 project/models/                  trained artifacts (RF stored compressed)
 project/results/                 metrics JSON, predictions, comparison summary

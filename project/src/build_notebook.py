@@ -5,12 +5,12 @@ Cell markers:
     # %%              -> code cell
 
 Usage:
-    python build_notebook.py source.py output.ipynb [--execute]
+    python build_notebook.py source.py output.ipynb [--execute] [--timeout 3600]
 """
 from __future__ import annotations
 
+import argparse
 import re
-import sys
 from pathlib import Path
 
 import nbformat
@@ -24,7 +24,7 @@ def strip_markdown_prefix(line: str) -> str:
     return _MD_PREFIX.sub("", line, count=1)
 
 
-def split_cells(text: str):
+def split_cells(text: str) -> list[tuple[str, str]]:
     cells = []
     current_type = None
     buffer: list[str] = []
@@ -71,7 +71,7 @@ def build(source: Path, output: Path) -> nbformat.NotebookNode:
     return nb
 
 
-def execute(nb: nbformat.NotebookNode, output: Path, timeout: int = 3600):
+def execute(nb: nbformat.NotebookNode, output: Path, timeout: int = 3600) -> None:
     client = NotebookClient(
         nb,
         timeout=timeout,
@@ -83,12 +83,31 @@ def execute(nb: nbformat.NotebookNode, output: Path, timeout: int = 3600):
     nbformat.write(nb, output)
 
 
-if __name__ == "__main__":
-    source = Path(sys.argv[1])
-    output = Path(sys.argv[2])
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("source", type=Path, help="percent-cell Python script")
+    parser.add_argument("output", type=Path, help="notebook path to create")
+    parser.add_argument(
+        "--execute", action="store_true", help="execute the generated notebook"
+    )
+    parser.add_argument(
+        "--timeout", type=int, default=3600,
+        help="cell execution timeout in seconds (default: 3600)",
+    )
+    return parser.parse_args()
+
+
+def main() -> None:
+    args = parse_args()
+    source = args.source
+    output = args.output
     nb = build(source, output)
-    if "--execute" in sys.argv:
-        execute(nb, output)
+    if args.execute:
+        execute(nb, output, timeout=args.timeout)
         print(f"executed -> {output}")
     else:
         print(f"built -> {output}")
+
+
+if __name__ == "__main__":
+    main()

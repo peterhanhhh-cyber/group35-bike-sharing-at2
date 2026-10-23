@@ -1,6 +1,6 @@
 {
   "method": "LSTM",
-  "owner": "Jimmy",
+  "owner": "Yichen Xie",
   "lab": "Lab 4",
   "config": {
     "window": 168,
@@ -42,21 +42,21 @@
       "window": 24,
       "best_epoch": 5,
       "val_MAE": 35.417144286993775,
-      "train_seconds": 5.394470378000051,
+      "train_seconds": 8.01640309999948,
       "params": 8385
     },
     {
       "window": 72,
       "best_epoch": 5,
       "val_MAE": 35.31554873495391,
-      "train_seconds": 10.909553353000092,
+      "train_seconds": 15.815628646999357,
       "params": 8385
     },
     {
       "window": 168,
       "best_epoch": 5,
       "val_MAE": 35.31554785641757,
-      "train_seconds": 25.727277802000003,
+      "train_seconds": 39.01258005299951,
       "params": 8385
     }
   ],
@@ -342,12 +342,12 @@
     19
   ],
   "high_demand_threshold": 238.0,
-  "train_seconds": 295.89145138000015,
+  "train_seconds": 411.4710793659997,
   "model_size_mb": 0.22642993927001953,
   "inference": {
-    "batch_seconds": 0.6998763673333693,
+    "batch_seconds": 0.9570445829998183,
     "batch_rows": 2600,
-    "single_row_ms": 1.3304542099990613
+    "single_row_ms": 1.755281125001602
   },
   "train_rows": 11816,
   "history": [
