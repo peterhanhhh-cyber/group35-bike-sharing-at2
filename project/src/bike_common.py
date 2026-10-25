@@ -715,7 +715,9 @@ def worst_errors(meta: pd.DataFrame, y_pred, n: int = 12) -> pd.DataFrame:
     frame["error"] = frame["prediction"] - frame["cnt"]
     cols = [c for c in ["dteday", "hr", "weekday", "workingday", "weathersit",
                         "temp", "hum", "cnt", "prediction", "error"] if c in frame]
-    return frame.loc[frame["error"].abs().sort_values(ascending=False).index[:n], cols].round(1)
+    table = frame.loc[frame["error"].abs().sort_values(ascending=False).index[:n], cols]
+    numeric = [c for c in table.columns if pd.api.types.is_numeric_dtype(table[c])]
+    return table.round({c: 1 for c in numeric})
 
 
 def save_predictions(meta: pd.DataFrame, y_pred, name: str) -> None:

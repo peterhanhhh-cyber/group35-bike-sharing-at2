@@ -27,11 +27,11 @@ reported as a documented negative result.
 | # | Notebook | Open in Colab |
 |---|---|---|
 | 00 | [EDA and shared preparation](project/notebooks/00_eda_and_data_preparation.ipynb) | [Colab](https://colab.research.google.com/github/peterhanhhh-cyber/group35-bike-sharing-at2/blob/main/project/notebooks/00_eda_and_data_preparation.ipynb) |
-| 01 | [Random forest](project/notebooks/01_random_forest_richard.ipynb) | [Colab](https://colab.research.google.com/github/peterhanhhh-cyber/group35-bike-sharing-at2/blob/main/project/notebooks/01_random_forest_richard.ipynb) |
-| 02 | [LSTM](project/notebooks/02_lstm_jimmy.ipynb) | [Colab](https://colab.research.google.com/github/peterhanhhh-cyber/group35-bike-sharing-at2/blob/main/project/notebooks/02_lstm_jimmy.ipynb) |
-| 03 | [2D CNN](project/notebooks/03_cnn_junzhe.ipynb) | [Colab](https://colab.research.google.com/github/peterhanhhh-cyber/group35-bike-sharing-at2/blob/main/project/notebooks/03_cnn_junzhe.ipynb) |
-| 04 | [Autoencoder](project/notebooks/04_autoencoder_peter.ipynb) | [Colab](https://colab.research.google.com/github/peterhanhhh-cyber/group35-bike-sharing-at2/blob/main/project/notebooks/04_autoencoder_peter.ipynb) |
-| **05** | **[Comparison and selection (best)](project/notebooks/05_comparison_and_selection.ipynb)** | **[Colab](https://colab.research.google.com/github/peterhanhhh-cyber/group35-bike-sharing-at2/blob/main/project/notebooks/05_comparison_and_selection.ipynb)** |
+| 01 | [Random forest](project/notebooks/35-notebook-1.ipynb) | [Colab](https://colab.research.google.com/github/peterhanhhh-cyber/group35-bike-sharing-at2/blob/main/project/notebooks/35-notebook-1.ipynb) |
+| 02 | [LSTM](project/notebooks/35-notebook-2.ipynb) | [Colab](https://colab.research.google.com/github/peterhanhhh-cyber/group35-bike-sharing-at2/blob/main/project/notebooks/35-notebook-2.ipynb) |
+| 03 | [2D CNN](project/notebooks/35-notebook-3.ipynb) | [Colab](https://colab.research.google.com/github/peterhanhhh-cyber/group35-bike-sharing-at2/blob/main/project/notebooks/35-notebook-3.ipynb) |
+| 04 | [Autoencoder](project/notebooks/35-notebook-4.ipynb) | [Colab](https://colab.research.google.com/github/peterhanhhh-cyber/group35-bike-sharing-at2/blob/main/project/notebooks/35-notebook-4.ipynb) |
+| **05** | **[Comparison and selection](project/notebooks/35-notebook-5.ipynb)** | **[Colab](https://colab.research.google.com/github/peterhanhhh-cyber/group35-bike-sharing-at2/blob/main/project/notebooks/35-notebook-5.ipynb)** |
 
 Notebooks 01–04 share one seven-section layout (setup, model, tuning experiment,
 final model, results, cost and saved evidence, conclusion); the shared training
@@ -41,7 +41,7 @@ All notebooks are committed with their executed outputs. The Colab links are
 for viewing; running them needs `hour.csv` and the `src/` folder in the Colab
 working directory.
 
-Notebooks 01–05 are the exact files uploaded to Canvas for assessment. Each one
+`35-notebook-1` to `35-notebook-5` are the exact files uploaded to Canvas for assessment. Each one
 ends with an appendix reproducing the source of the `bike_common.py` functions
 it calls, so it can be read on its own without the rest of the repository.
 
