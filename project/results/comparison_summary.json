@@ -18,7 +18,7 @@
       "single-row ms": 69.659832
     },
     "LSTM": {
-      "owner": "Yichen Xie",
+      "owner": "Yi-chen Hsieh",
       "lab": "Lab 4",
       "val MAE": 33.20327,
       "val RMSE": 49.811015,
@@ -111,7 +111,7 @@
       "weighted score": 3.15
     },
     "LSTM": {
-      "owner": "Yichen Xie",
+      "owner": "Yi-chen Hsieh",
       "lab": "Lab 4",
       "val MAE": 33.20327,
       "val RMSE": 49.811015,

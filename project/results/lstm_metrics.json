@@ -1,6 +1,6 @@
 {
   "method": "LSTM",
-  "owner": "Yichen Xie",
+  "owner": "Yi-chen Hsieh",
   "lab": "Lab 4",
   "config": {
     "window": 168,

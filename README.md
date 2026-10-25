@@ -7,7 +7,7 @@ and weather information, using the UCI Bike Sharing hourly dataset (Washington,
 D.C., 2011–2012). Four techniques were developed under one shared protocol and
 compared on the same frozen test rows.
 
-**Group 35:** Ruo Wu, Yichen Xie, Junzhe Xu, Zongliang Han
+**Group 35:** Ruo Wu, Yi-chen Hsieh, Junzhe Xu, Zongliang Han
 
 ## Results
 
@@ -40,6 +40,10 @@ loop, evaluation and plots live in `project/src/bike_common.py`.
 All notebooks are committed with their executed outputs. The Colab links are
 for viewing; running them needs `hour.csv` and the `src/` folder in the Colab
 working directory.
+
+Notebooks 01–05 are the exact files uploaded to Canvas for assessment. Each one
+ends with an appendix reproducing the source of the `bike_common.py` functions
+it calls, so it can be read on its own without the rest of the repository.
 
 ## Run the interface locally
 
